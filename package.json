@@ -10,6 +10,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@vue/cli-plugin-pwa": "^5.0.8",
     "pinia": "^2.2.4",
     "vue": "^3.5.12",
@@ -20,6 +21,7 @@
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^25.0.1",
+    "sass": "^1.80.3",
     "vite": "^5.4.8",
     "vitest": "^2.1.2"
   }

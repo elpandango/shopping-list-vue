@@ -1,5 +1,7 @@
 <template>
-  <div :class="{ completed: product?.completed }">
+  <div
+   class="product-item"
+   :class="{ completed: product?.completed }">
     <template v-if="isEditing">
       <v-text-field
        v-model="editedProductName"
@@ -17,28 +19,56 @@
       </v-btn>
     </template>
     <template v-else>
-      <div class="d-flex align-center">
-        <div class="product-details">
-          <p>{{ product.name }} ({{ product.quantity }})</p>
-          <p v-if="product.dueDate">Due to: {{ product.dueDate }}</p>
-        </div>
-<!--        <v-switch-->
-<!--         v-model="product.completed"-->
-<!--         @change="toggleStatus"-->
-<!--         class="mr-3"-->
-<!--         label="Status"-->
-<!--        ></v-switch>-->
-        <button @click="toggleStatus">{{ product.completed ? 'Completed' : 'Pending' }}</button>
-        <v-btn
-         @click="editProduct"
-         color="primary"
-         class="ml-2">Edit
-        </v-btn>
-        <v-btn
-         @click="deleteProduct"
-         color="error"
-         class="ml-2">Delete
-        </v-btn>
+      <div class="product-details">
+        <p class="product-name">{{ product.name }} ({{ product.quantity }})</p>
+        <p class="product-due-to" v-if="product.dueDate"><strong>Due to:</strong> {{ product.dueDate }}</p>
+      </div>
+
+      <div class="actions">
+        <v-tooltip bottom>
+          <template #activator="{ props }">
+            <v-btn
+             v-bind="props"
+             @click="toggleStatus"
+             :color="product.completed ? 'success' : 'warning'"
+             class="ml-2"
+             icon
+            >
+              <v-icon>{{ product.completed ? 'mdi-check' : 'mdi-clock' }}</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ product.completed ? 'Completed' : 'Pending' }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+          <template #activator="{ props }">
+            <v-btn
+             v-bind="props"
+             @click="editProduct"
+             color="primary"
+             class="ml-2"
+             icon
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </template>
+          <span>Edit Product</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+          <template #activator="{ props }">
+            <v-btn
+             v-bind="props"
+             @click="deleteProduct"
+             color="error"
+             class="ml-2"
+             icon
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </template>
+          <span>Delete Product</span>
+        </v-tooltip>
       </div>
     </template>
   </div>
@@ -80,9 +110,7 @@ const toggleStatus = () => {
 };
 </script>
 
-<style scoped>
-.completed .product-details {
-  text-decoration: line-through;
-  color: gray;
-}
+<style
+ lang="scss"
+ src="./styles.scss">
 </style>
