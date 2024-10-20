@@ -1,12 +1,17 @@
 <template>
-  <v-app>
-    <HeaderComponent/>
-    <v-container fluid>
-      <ProductForm @add-product="addProduct"/>
-      <ProductList
-       @product-updated="loadProducts"
-       :products="products"/>
-    </v-container>
+  <v-app class="app-container">
+    <v-main>
+      <v-container
+       class="py-0 px-0"
+       style="width: 100%;"
+       fluid>
+        <HeaderComponent/>
+        <ProductForm @add-product="addProduct"/>
+        <ProductList
+         @product-updated="loadProducts"
+         :products="products"/>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -68,6 +73,14 @@ watch(products, (newProducts) => {
 });
 </script>
 
-<style scoped>
+<style lang="scss">
+#app {
+  display: flex !important;
+  width: 100%;
+  padding: 0 20px;
+}
 
+.app-container {
+  padding-top: 20px;
+}
 </style>

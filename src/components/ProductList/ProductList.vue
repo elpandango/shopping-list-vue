@@ -1,19 +1,33 @@
 <template>
-  <div>
-    <ul>
-      <li
-       v-for="product in props.products"
-       :key="product.id">
-        <ProductItem
-         :product="product"
-         @delete-product="deleteProduct(product.id)"
-         @edit-product="editProduct"
-         @toggle-status="toggleProductStatus(product.id)"
-        />
-      </li>
-    </ul>
-    <div v-if="!products.length">No products added.</div>
-  </div>
+  <v-row
+   justify="center">
+    <v-col
+     cols="12"
+     md="8"
+     lg="8">
+      <v-card
+       class="mx-auto">
+        <v-main class="pt-0">
+          <ul
+           class="product-list"
+           v-if="products.length">
+            <li
+             v-for="product in props.products"
+             :key="product.id"
+             class="list-item">
+              <ProductItem
+               :product="product"
+               @delete-product="deleteProduct(product.id)"
+               @edit-product="editProduct"
+               @toggle-status="toggleProductStatus(product.id)"
+              />
+            </li>
+          </ul>
+          <div v-else>No products added.</div>
+        </v-main>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script
@@ -55,14 +69,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
-ul {
+.product-list {
   list-style-type: none;
-  padding: 0;
+  padding: 16px;
 }
 
-li {
-  display: flex;
-  justify-content: space-between;
+.list-item {
+  //display: flex;
+  //justify-content: space-between;
   padding: 5px 0;
 }
 </style>

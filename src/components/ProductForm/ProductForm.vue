@@ -1,37 +1,48 @@
 <template>
-  <v-form
-   ref="form"
-   v-model="valid"
-   lazy-validation>
-    <v-text-field
-     v-model="product.name"
-     :rules="[rules.required]"
-     label="Product"
-     required
-    ></v-text-field>
+  <v-row
+   justify="center"
+   align="center"
+  >
+    <v-col
+     cols="12"
+     md="8"
+     lg="8">
+      <v-card class="py-6 px-6">
+        <v-text-field
+         label="Product title"
+         v-model="product.name"
+         variant="outlined"
+        ></v-text-field>
 
-    <v-text-field
-     v-model="product.quantity"
-     :rules="[rules.required]"
-     label="Quantity"
-     required
-     type="number"
-    ></v-text-field>
+        <v-date-input
+         label="Due date"
+         prepend-icon=""
+         variant="outlined"
+         persistent-placeholder
+        ></v-date-input>
 
-    <v-date-picker
-     v-model="product.dueDate"
-     label="Date"
-    ></v-date-picker>
+        <v-number-input
+         label="Quantity"
+         v-model="product.quantity"
+         :rules="[rules.required]"
+         :min="0"
+         variant="outlined"
+        ></v-number-input>
 
-    <v-btn
-     @click="addProduct"
-     color="success">Add Product
-    </v-btn>
-  </v-form>
+        <v-btn
+         @click="addProduct"
+         color="success"
+        >Add Product
+        </v-btn>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script setup>
 import {ref, useTemplateRef} from 'vue';
+import {VDateInput} from 'vuetify/labs/VDateInput';
+import {VNumberInput} from 'vuetify/labs/VNumberInput';
 
 const valid = ref(false);
 const product = ref({
@@ -53,7 +64,7 @@ const formatDueDate = (date) => {
   console.log('date: ', date);
 
   if (!date) return null;
-  const options = { year: 'numeric', month: 'long', day: '2-digit' };
+  const options = {year: 'numeric', month: 'long', day: '2-digit'};
   return new Date(date).toLocaleDateString('en-GB', options);
 };
 
