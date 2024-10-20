@@ -13,8 +13,7 @@
            v-if="products.length">
             <li
              v-for="product in props.products"
-             :key="product.id"
-             class="list-item">
+             :key="product.id">
               <ProductItem
                :product="product"
                @delete-product="deleteProduct(product.id)"
@@ -35,7 +34,6 @@
  lang="ts">
 
 import ProductItem from "@/components/ProductItem/ProductItem.vue";
-import {onMounted} from "vue";
 import {useStoreProducts} from "@/stores/storeProducts";
 
 const storeProduct = useStoreProducts();
@@ -61,22 +59,9 @@ const editProduct = (product) => {
   storeProduct.editProduct(product);
   emit('product-updated');
 };
-
-onMounted(() => {
-  console.log('mounted in ProductList.vue');
-  console.log('props.products ', props.products);
-});
 </script>
 
-<style scoped>
-.product-list {
-  list-style-type: none;
-  padding: 16px;
-}
-
-.list-item {
-  //display: flex;
-  //justify-content: space-between;
-  padding: 5px 0;
-}
+<style
+ lang="scss"
+ src="./styles.scss">
 </style>
