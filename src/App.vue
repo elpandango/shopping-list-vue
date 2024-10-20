@@ -79,8 +79,4 @@ watch(products, (newProducts) => {
   width: 100%;
   padding: 0 20px;
 }
-
-.app-container {
-  padding-top: 20px;
-}
 </style>
