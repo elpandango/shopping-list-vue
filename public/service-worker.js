@@ -4,6 +4,7 @@ const urlsToCache = [
   '/index.html',
   '/css/app.css',
   '/js/app.js',
+  '/images/icon-512x512.png',
 ];
 
 self.addEventListener('install', (event) => {
@@ -16,6 +17,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  const cacheWhitelist = ['my-pwa-cache-v1'];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -32,16 +34,18 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
       }
+
       return fetch(event.request).then((networkResponse) => {
         if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
           return networkResponse;
         }
 
         const responseToCache = networkResponse.clone();
+
         caches.open(CACHE_NAME).then((cache) => {
           cache.put(event.request, responseToCache);
         });
@@ -56,7 +60,7 @@ self.addEventListener('push', (event) => {
   const data = event.data.json();
   const options = {
     body: data.body,
-    icon: 'images/icon-512-512.png'
+    icon: '/images/icon-512x512.png'
   };
 
   event.waitUntil(

@@ -22,7 +22,10 @@ const messages = {
     noProductsText: 'No Products Added',
     noProductsMessage: 'It looks like you haven\'t added any products yet. Start adding some!',
     deleteAllProductsText: 'Delete All Products',
-    deleteBtnText: 'Delete'
+    deleteBtnText: 'Delete',
+    appGreeting: 'Welcome to Your Product Manager',
+    appDescription: 'Add, edit, and delete your products efficiently!',
+    manageProducts: 'Manage Products',
   },
   de: {
     appTitle: 'Einkaufslisten-App',
@@ -45,12 +48,15 @@ const messages = {
     noProductsText: 'Keine Produkte hinzugefügt',
     noProductsMessage: 'Es scheint, dass Sie noch keine Produkte hinzugefügt haben. Beginnen Sie mit dem Hinzufügen!',
     deleteAllProductsText: 'Alle Produkte löschen',
-    deleteBtnText: 'Löschen'
+    deleteBtnText: 'Löschen',
+    appGreeting: 'Willkommen bei Ihrem Produktmanager',
+    appDescription: 'Fügen Sie Ihre Produkte effizient hinzu, bearbeiten und löschen!',
+    manageProducts: 'Produkte verwalten',
   },
 };
 
 const i18n = createI18n({
-  locale: 'en', // установка начального языка
+  locale: 'en',
   messages,
 });
 

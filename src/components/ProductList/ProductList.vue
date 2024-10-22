@@ -32,7 +32,7 @@
       <v-card
        v-else
        class="text-center">
-        <v-card-title>
+        <v-card-title class="text-wrap">
           <h2>{{ $t('noProductsText') }}</h2>
         </v-card-title>
         <v-card-text>
