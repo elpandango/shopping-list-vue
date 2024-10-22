@@ -1,16 +1,20 @@
 <template>
-  <v-row
-   justify="center">
+  <v-row justify="center">
     <v-col
      cols="12"
      md="8"
      lg="8">
       <v-card
-       class="mx-auto">
+       class="mx-auto"
+       v-if="products.length">
         <v-main class="pt-0">
-          <ul
-           class="product-list"
-           v-if="products.length">
+          <v-btn
+           @click="deleteAllProducts"
+           color="red"
+           class="mb-2">
+            Delete All Products
+          </v-btn>
+          <ul class="product-list">
             <li
              v-for="product in props.products"
              :key="product.id">
@@ -22,8 +26,18 @@
               />
             </li>
           </ul>
-          <div v-else>No products added.</div>
         </v-main>
+      </v-card>
+
+      <v-card
+       v-else
+       class="text-center">
+        <v-card-title>
+          <h2>No Products Added</h2>
+        </v-card-title>
+        <v-card-text>
+          <p>It looks like you haven't added any products yet. Start adding some!</p>
+        </v-card-text>
       </v-card>
     </v-col>
   </v-row>
@@ -44,7 +58,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['product-updated']);
+const emit = defineEmits(['product-updated', 'edit-product', 'delete-all-products']);
 
 const toggleProductStatus = (id) => {
   storeProduct.toggleProductStatus(id);
@@ -55,9 +69,13 @@ const deleteProduct = (id) => {
   storeProduct.deleteProductById(id);
 };
 
+const deleteAllProducts = () => {
+  emit('delete-all-products');
+};
+
 const editProduct = (product) => {
   storeProduct.editProduct(product);
-  emit('product-updated');
+  emit('edit-product', product);
 };
 </script>
 

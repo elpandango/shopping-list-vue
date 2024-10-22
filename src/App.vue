@@ -6,12 +6,28 @@
        style="width: 100%;"
        fluid>
         <HeaderComponent/>
-        <ProductForm @add-product="addProduct"/>
+        <ProductForm @add-product="openModalToAdd"/>
         <ProductList
          @product-updated="loadProducts"
+         @edit-product="openModalToEdit"
+         @delete-all-products="openDeleteAllProducts"
          :products="products"/>
       </v-container>
     </v-main>
+
+    <ProductModal
+     :showModal="showModal"
+     :isEditMode="isEditMode"
+     :product="currentProduct"
+     @submit="handleProductSubmit"
+     @close="closeModal"
+    />
+
+    <ConfirmDeleteModal
+     :showModal="showDeleteAllProductsModal"
+     @deleteConfirmed="deleteAllProducts"
+     @close="closeDeleteAllProductsModal"
+    />
   </v-app>
 </template>
 
@@ -22,18 +38,69 @@ import {ref, onBeforeMount, watch} from 'vue';
 import HeaderComponent from './components/HeaderComponent/HeaderComponent.vue';
 import ProductForm from './components/ProductForm/ProductForm.vue';
 import ProductList from './components/ProductList/ProductList.vue';
+import ProductModal from "@/components/Modals/ProductModal.vue";
+import ConfirmDeleteModal from "@/components/Modals/ConfirmDeleteModal.vue";
 import {useStoreProducts} from "@/stores/storeProducts";
 
 const products = ref([]);
 const storeProducts = useStoreProducts();
+const isEditMode = ref(false);
+const showModal = ref(false);
+const showDeleteAllProductsModal = ref(false);
+const currentProduct = ref({
+  name: '',
+  quantity: null,
+  dueDate: null,
+  completed: false,
+});
 
 const loadProducts = () => {
   storeProducts.loadProducts();
   products.value = storeProducts.getProducts;
 };
 
-const addProduct = (product) => {
-  storeProducts.addProduct(product);
+const openModalToAdd = () => {
+  isEditMode.value = false;
+  currentProduct.value = {
+    name: '',
+    quantity: null,
+    dueDate: null,
+    completed: false,
+  };
+  showModal.value = true;
+};
+
+const openModalToEdit = (product) => {
+  isEditMode.value = true;
+  currentProduct.value = { ...product };
+  showModal.value = true;
+};
+
+const openDeleteAllProducts = () => {
+  showDeleteAllProductsModal.value = true;
+};
+
+const closeDeleteAllProductsModal = () => {
+  showDeleteAllProductsModal.value = false;
+};
+
+const deleteAllProducts = () => {
+  storeProducts.deleteAllProducts();
+  loadProducts();
+  closeDeleteAllProductsModal();
+};
+
+const closeModal = () => {
+  showModal.value = false;
+};
+
+const handleProductSubmit = (product) => {
+  if (isEditMode.value) {
+    storeProducts.editProduct(product);
+  } else {
+    storeProducts.addProduct(product);
+  }
+  loadProducts();
   checkDueDates();
 };
 
