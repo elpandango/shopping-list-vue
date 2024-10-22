@@ -9,14 +9,17 @@
      lg="8">
       <v-btn
        @click="addProductClicked"
-       color="primary">Add Product
+       color="primary">{{$t('addProductText')}}
       </v-btn>
     </v-col>
   </v-row>
 </template>
 
 <script setup>
+import {useI18n} from 'vue-i18n';
+
 const emit = defineEmits(['add-product']);
+const {t} = useI18n();
 
 const addProductClicked = () => {
   emit('add-product');

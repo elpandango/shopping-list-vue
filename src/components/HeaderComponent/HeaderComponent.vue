@@ -3,18 +3,23 @@
    color="primary"
    density="compact"
   >
-    <v-app-bar-title>Shopping List App</v-app-bar-title>
-
+    <v-app-bar-title>{{ $t('appTitle') }}</v-app-bar-title>
     <template v-slot:append>
-      <v-btn icon="mdi-dots-vertical"></v-btn>
+      <v-btn
+       @click="toggleLanguage">{{ locale === 'en' ? 'EN' : 'DE' }}</v-btn>
     </template>
   </v-app-bar>
 </template>
 
-<script>
-export default {
-  name: 'HeaderComponent',
-}
+<script setup>
+import {useI18n} from 'vue-i18n';
+
+const { t, locale } = useI18n();
+
+const toggleLanguage = () => {
+  locale.value = locale.value === 'en' ? 'de' : 'en';
+};
+
 </script>
 
 <style scoped>

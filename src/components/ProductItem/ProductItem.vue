@@ -6,7 +6,7 @@
       <p class="product-name">{{ product.name }} ({{ product.quantity }})</p>
       <p
        class="product-due-to"
-       v-if="product.dueDate"><strong>Due to:</strong> {{ product.dueDate }}</p>
+       v-if="product.dueDate"><strong>{{ $t('dueDateLabel') }}:</strong> {{ product.dueDate }}</p>
     </div>
 
     <div class="actions">
@@ -22,7 +22,7 @@
             <v-icon>{{ product.completed ? 'mdi-check' : 'mdi-clock' }}</v-icon>
           </v-btn>
         </template>
-        <span>{{ product.completed ? 'Completed' : 'Pending' }}</span>
+        <span>{{ product.completed ? $t('completedText') : $t('pendingText') }}</span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -37,7 +37,7 @@
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </template>
-        <span>Edit Product</span>
+        <span>{{ $t('editProductText') }}</span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -52,7 +52,7 @@
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </template>
-        <span>Delete Product</span>
+        <span>{{ $t('deleteProductText') }}</span>
       </v-tooltip>
     </div>
 
@@ -60,18 +60,16 @@
      v-model="showDeleteDialog"
      max-width="400">
       <v-card>
-        <v-card-title class="headline px-4">Confirm Deletion</v-card-title>
-        <v-card-text class="px-4">
-          Are you sure you want to delete this product?
-        </v-card-text>
+        <v-card-title class="headline px-4">{{ $t('confirmDeletionTitle') }}</v-card-title>
+        <v-card-text class="px-4">{{ $t('confirmDeletionText') }}</v-card-text>
         <v-card-actions>
           <v-btn
            color="grey"
-           @click="showDeleteDialog = false">Cancel
+           @click="showDeleteDialog = false">{{ $t('btnTextCancel') }}
           </v-btn>
           <v-btn
            color="error"
-           @click="confirmDelete">Delete
+           @click="confirmDelete">{{ $t('deleteBtnText') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -82,6 +80,7 @@
 
 <script setup>
 import {ref} from 'vue';
+import {useI18n} from "vue-i18n";
 
 const props = defineProps({
   product: {
@@ -90,6 +89,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['delete-product', 'edit-product', 'toggle-status']);
+const {t} = useI18n();
 
 const showDeleteDialog = ref(false);
 
