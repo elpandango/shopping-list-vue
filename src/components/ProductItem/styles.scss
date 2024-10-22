@@ -8,7 +8,7 @@
     flex-wrap: wrap;
   }
 
-  .completed {
+  &.completed {
     .product-details {
       text-decoration: line-through;
       color: gray;

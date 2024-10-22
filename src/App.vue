@@ -1,146 +1,23 @@
 <template>
   <v-app class="app-container">
-    <v-main>
-      <v-container
-       class="py-0 px-0"
-       style="width: 100%;"
-       fluid>
-        <HeaderComponent/>
-        <ProductForm @add-product="openModalToAdd"/>
-        <ProductList
-         @product-updated="loadProducts"
-         @edit-product="openModalToEdit"
-         @delete-all-products="openDeleteAllProducts"
-         :products="products"/>
-      </v-container>
-    </v-main>
-
-    <ProductModal
-     :showModal="showModal"
-     :isEditMode="isEditMode"
-     :product="currentProduct"
-     @submit="handleProductSubmit"
-     @close="closeModal"
-    />
-
-    <ConfirmDeleteModal
-     :showModal="showDeleteAllProductsModal"
-     @deleteConfirmed="deleteAllProducts"
-     @close="closeDeleteAllProductsModal"
-    />
+    <router-view />
   </v-app>
 </template>
 
-<script
- setup
- lang="ts">
-import {ref, onBeforeMount, watch} from 'vue';
-import HeaderComponent from './components/HeaderComponent/HeaderComponent.vue';
-import ProductForm from './components/ProductForm/ProductForm.vue';
-import ProductList from './components/ProductList/ProductList.vue';
-import ProductModal from "@/components/Modals/ProductModal.vue";
-import ConfirmDeleteModal from "@/components/Modals/ConfirmDeleteModal.vue";
-import {useStoreProducts} from "@/stores/storeProducts";
-
-const products = ref([]);
-const storeProducts = useStoreProducts();
-const isEditMode = ref(false);
-const showModal = ref(false);
-const showDeleteAllProductsModal = ref(false);
-const currentProduct = ref({
-  name: '',
-  quantity: null,
-  dueDate: null,
-  completed: false,
-});
-
-const loadProducts = () => {
-  storeProducts.loadProducts();
-  products.value = storeProducts.getProducts;
-};
-
-const openModalToAdd = () => {
-  isEditMode.value = false;
-  currentProduct.value = {
-    name: '',
-    quantity: null,
-    dueDate: null,
-    completed: false,
-  };
-  showModal.value = true;
-};
-
-const openModalToEdit = (product) => {
-  isEditMode.value = true;
-  currentProduct.value = { ...product };
-  showModal.value = true;
-};
-
-const openDeleteAllProducts = () => {
-  showDeleteAllProductsModal.value = true;
-};
-
-const closeDeleteAllProductsModal = () => {
-  showDeleteAllProductsModal.value = false;
-};
-
-const deleteAllProducts = () => {
-  storeProducts.deleteAllProducts();
-  loadProducts();
-  closeDeleteAllProductsModal();
-};
-
-const closeModal = () => {
-  showModal.value = false;
-};
-
-const handleProductSubmit = (product) => {
-  if (isEditMode.value) {
-    storeProducts.editProduct(product);
-  } else {
-    storeProducts.addProduct(product);
-  }
-  loadProducts();
-  checkDueDates();
-};
-
-const checkDueDates = () => {
-  const today = new Date().toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: '2-digit',
-  });
-
-  const dueProducts = products.value.filter(product => product.dueDate === today && !product.completed);
-
-  if (dueProducts.length > 0) {
-    sendNotification(`🛒 Don't forget to buy it today: ${dueProducts.map(product => product.name).join(', ')}`);
-  }
-};
-
-const requestNotificationPermission = () => {
-  Notification.requestPermission().then(permission => {
-    console.log(permission === 'granted' ? 'Notification permission granted.' : 'Notification permission denied.');
-  });
-};
-
-const sendNotification = (message) => {
-  const notification = new Notification('Due Date Alert', {
-    body: message,
-  });
-};
-
-onBeforeMount(() => {
-  loadProducts();
-  requestNotificationPermission();
-});
-
-watch(products, (newProducts) => {
-  checkDueDates();
-});
-</script>
+<script></script>
 
 <style lang="scss">
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #fff;
+}
+
+body {
+  padding: env(safe-area-inset);
+}
+
 #app {
   display: flex !important;
   width: 100%;
