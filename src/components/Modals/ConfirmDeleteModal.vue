@@ -8,12 +8,12 @@
       <v-card-text>{{ $t('deleteConfirmationText') }}</v-card-text>
       <v-card-actions>
         <v-btn
-         @click="confirmDelete"
-         color="red">{{ $t('deleteConfirmationBtnConfirm') }}
-        </v-btn>
-        <v-btn
          @click="closeDialog"
          color="grey">{{ $t('btnTextCancel') }}
+        </v-btn>
+        <v-btn
+         @click="confirmDelete"
+         color="red">{{ $t('deleteConfirmationBtnConfirm') }}
         </v-btn>
       </v-card-actions>
     </v-card>
