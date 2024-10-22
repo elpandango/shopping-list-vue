@@ -1,10 +1,24 @@
 <template>
   <v-app class="app-container">
-    <router-view />
+    <template v-if="showPreloader">
+      <Preloader />
+    </template>
+    <template v-else>
+      <router-view/>
+    </template>
   </v-app>
 </template>
 
-<script></script>
+<script setup>
+import {ref} from 'vue';
+import Preloader from "@/components/Preloader/Preloader.vue";
+
+const showPreloader = ref(true);
+
+setTimeout(() => {
+  showPreloader.value = false;
+}, 2000);
+</script>
 
 <style lang="scss">
 body, html {

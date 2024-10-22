@@ -29,6 +29,7 @@
          v-model="product.quantity"
          :rules="[rules.required]"
          :min="0"
+         :step="0.1"
          variant="outlined"
         ></v-number-input>
       </v-card-text>
@@ -87,6 +88,11 @@ const submitProduct = () => {
     const options = { year: 'numeric', month: 'long', day: '2-digit' };
     product.value.dueDate = product.value.dueDate.toLocaleDateString('en-GB', options);
   }
+
+  if (product.value.name === '' || product.value.quantity === 0) {
+    return;
+  }
+
   emit('submit', product.value);
   closeDialog();
 };
@@ -116,7 +122,7 @@ const handleKeydown = (event) => {
 
 onMounted(() => {
   showDialog.value = props.showModal;
-  window.addEventListener('keydown', handleKeydown); // Добавляем слушатель на нажатие клавиш
+  window.addEventListener('keydown', handleKeydown);
 });
 
 onBeforeUnmount(() => {
