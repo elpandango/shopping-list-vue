@@ -12,7 +12,7 @@
            @click="deleteAllProducts"
            color="red"
            class="mb-2">
-            Delete All Products
+            {{ $t('deleteAllProductsText') }}
           </v-btn>
           <ul class="product-list">
             <li
@@ -33,10 +33,10 @@
        v-else
        class="text-center">
         <v-card-title>
-          <h2>No Products Added</h2>
+          <h2>{{ $t('noProductsText') }}</h2>
         </v-card-title>
         <v-card-text>
-          <p>It looks like you haven't added any products yet. Start adding some!</p>
+          <p>{{ $t('noProductsMessage') }}</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -49,6 +49,7 @@
 
 import ProductItem from "@/components/ProductItem/ProductItem.vue";
 import {useStoreProducts} from "@/stores/storeProducts";
+import {useI18n} from 'vue-i18n';
 
 const storeProduct = useStoreProducts();
 
@@ -59,6 +60,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['product-updated', 'edit-product', 'delete-all-products']);
+const {t} = useI18n();
 
 const toggleProductStatus = (id) => {
   storeProduct.toggleProductStatus(id);

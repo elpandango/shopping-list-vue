@@ -6,18 +6,18 @@
   >
     <v-card>
       <v-card-title>
-        <span class="headline">{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</span>
+        <span class="headline">{{ isEditMode ? $t('editProductText') : $t('addProductText') }}</span>
       </v-card-title>
       <v-card-text>
         <v-text-field
-         label="Product title"
+         :label="$t('addProductTitle')"
          v-model="product.name"
          variant="outlined"
          :rules="[rules.required]"
         ></v-text-field>
 
         <v-date-input
-         label="Due date"
+         :label="$t('dueDateLabel')"
          v-model="product.dueDate"
          prepend-icon=""
          variant="outlined"
@@ -25,7 +25,7 @@
         ></v-date-input>
 
         <v-number-input
-         label="Quantity"
+         :label="$t('quantityLabel')"
          v-model="product.quantity"
          :rules="[rules.required]"
          :min="0"
@@ -34,9 +34,9 @@
       </v-card-text>
       <v-card-actions>
         <v-btn @click="submitProduct" color="success">
-          {{ isEditMode ? 'Save' : 'Add Product' }}
+          {{ isEditMode ? $t('editModeSave') : $t('editModeAdd') }}
         </v-btn>
-        <v-btn @click="closeDialog" color="grey">Cancel</v-btn>
+        <v-btn @click="closeDialog" color="grey">{{ $t('btnTextCancel') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -46,6 +46,7 @@
 import { VDateInput } from 'vuetify/labs/VDateInput';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
+import {useI18n} from 'vue-i18n';
 
 const props = defineProps({
   product: {
@@ -68,6 +69,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['submit', 'close']);
+const {t} = useI18n();
 const showDialog = ref(false);
 const product = ref({ ...props.product, quantity: props.product.quantity ? Number(props.product.quantity) : 0 });
 
