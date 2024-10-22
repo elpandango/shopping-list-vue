@@ -11,7 +11,7 @@ interface Product {
 export const useStoreProducts = defineStore({
   id: 'storeProducts',
   state: () => ({
-    products: [],
+    products: [] as Product[],
   }),
   actions: {
     addProduct(product: Product) {
@@ -39,6 +39,10 @@ export const useStoreProducts = defineStore({
     },
     saveProducts() {
       localStorage.setItem('products', JSON.stringify(this.products));
+    },
+    deleteAllProducts() {
+      this.products = [];
+      localStorage.removeItem('products');
     },
     toggleProductStatus(id: string) {
       const newProductsArray: Product[] = [...this.products];
