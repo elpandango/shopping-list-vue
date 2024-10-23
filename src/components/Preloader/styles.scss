@@ -1,0 +1,36 @@
+.preloader-wrap {
+  position: fixed;
+  z-index: 15000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.animated-text {
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #00c6ff, #0072ff, #6a00f4, #00ff89, #00c6ff);
+  background-size: 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shine 3s infinite linear;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 32px;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 200%;
+  }
+}

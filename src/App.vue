@@ -26,6 +26,8 @@ body, html {
   padding: 0;
   height: 100%;
   background-color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
 }
 
 body {
