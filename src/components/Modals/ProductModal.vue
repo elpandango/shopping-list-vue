@@ -74,9 +74,9 @@ const productHasDouble = ref(false);
 
 const nameRules = [
   value => {
-    if (value) return true
+    if (value) return true;
 
-    return 'Name is required.'
+    return t('nameValidationText');
   },
   value => {
     if (value) {
@@ -85,7 +85,7 @@ const nameRules = [
 
       if (index !== -1 && !props.isEditMode) {
         productHasDouble.value = true;
-        return 'This Product was already added!';
+        return t('doubleValidationText');
       }
 
       productHasDouble.value = false;
@@ -96,14 +96,13 @@ const nameRules = [
 
 const quantityRules = [
   value => {
-    if (value) return true
+    if (value) return true;
 
-    return 'Quantity is required.'
+    return t('quantityValidationText');
   }
 ];
 
 const closeDialog = () => {
-  showDialog.value = false;
   emit('close');
 };
 

@@ -86,7 +86,7 @@ const props = defineProps<{
   product: Product;
 }>();
 
-const emit = defineEmits(['delete-product', 'edit-product', 'toggle-status']);
+const emit = defineEmits(['delete-product', 'edit-product', 'toggle-product-status']);
 const {t} = useI18n();
 const showDeleteDialog = ref(false);
 
@@ -104,7 +104,7 @@ const emitEditProduct = () => {
 };
 
 const toggleStatus = () => {
-  emit('toggle-status');
+  emit('toggle-product-status');
 };
 </script>
 

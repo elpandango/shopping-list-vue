@@ -2,7 +2,7 @@
   <v-main>
     <HeaderComponent/>
     <v-container class="text-center" fluid>
-      <v-card class="pa-4 mx-auto my-10" max-width="100%" min-width="300" outlined>
+      <v-card class="pa-4 mx-auto my-10" max-width="50%" min-width="300" outlined>
         <v-card-title class="headline text-wrap">
           {{ $t('appTitle') }}
         </v-card-title>
@@ -38,6 +38,6 @@ h1 {
 }
 
 .v-card {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 </style>

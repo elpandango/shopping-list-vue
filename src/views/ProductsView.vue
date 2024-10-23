@@ -7,10 +7,10 @@
       <HeaderComponent/>
       <ProductForm @add-product="openModalToAdd"/>
       <ProductList
-       @product-updated="loadProducts"
-       @edit-product="openModalToEdit"
-       @delete-all-products="openDeleteAllProducts"
        :products="products"
+       @toggle-product-status="loadProducts"
+       @edit-product="openModalToEdit"
+       @delete-all-products="openDeleteAllProductsModal"
       />
     </v-container>
 
@@ -41,7 +41,9 @@ import ProductModal from "@/components/Modals/ProductModal.vue";
 import ConfirmDeleteModal from "@/components/Modals/ConfirmDeleteModal.vue";
 import {useStoreProducts} from "@/stores/storeProducts";
 import {Product} from "@/interfaces/Product";
+import {useI18n} from 'vue-i18n';
 
+const {t} = useI18n();
 const storeProducts = useStoreProducts();
 const isEditMode = ref(false);
 const showModal = ref(false);
@@ -76,7 +78,11 @@ const openModalToEdit = (product) => {
   showModal.value = true;
 };
 
-const openDeleteAllProducts = () => {
+const closeModal = () => {
+  showModal.value = false;
+};
+
+const openDeleteAllProductsModal = () => {
   showDeleteAllProductsModal.value = true;
 };
 
@@ -88,10 +94,6 @@ const deleteAllProducts = () => {
   storeProducts.deleteAllProducts();
   loadProducts();
   closeDeleteAllProductsModal();
-};
-
-const closeModal = () => {
-  showModal.value = false;
 };
 
 const handleProductSubmit = (product) => {
@@ -114,7 +116,7 @@ const checkDueDates = () => {
   const dueProducts = products.value.filter(product => product.dueDate <= today && !product.completed);
 
   if (dueProducts.length > 0) {
-    sendNotification(`🛒 Don't forget to buy it today: ${dueProducts.map(product => product.name).join(', ')}`);
+    sendNotification(`🛒 ${t('notificationText')}: ${dueProducts.map(product => product.name).join(', ')}`);
   }
 };
 

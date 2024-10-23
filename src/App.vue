@@ -1,7 +1,7 @@
 <template>
   <v-app class="app-container">
     <template v-if="showPreloader">
-      <Preloader />
+      <Preloader/>
     </template>
     <template v-else>
       <router-view/>
@@ -9,15 +9,19 @@
   </v-app>
 </template>
 
-<script setup lang="ts">
-import {ref} from 'vue';
+<script
+ setup
+ lang="ts">
+import {onMounted, ref} from 'vue';
 import Preloader from "@/components/Preloader/Preloader.vue";
 
 const showPreloader = ref(true);
 
-setTimeout(() => {
-  showPreloader.value = false;
-}, 2000);
+onMounted(() => {
+  setTimeout(() => {
+    showPreloader.value = false;
+  }, 2000);
+});
 </script>
 
 <style lang="scss">
@@ -39,4 +43,5 @@ body {
   width: 100%;
   padding: 0 20px;
 }
+
 </style>

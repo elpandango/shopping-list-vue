@@ -22,7 +22,7 @@
                :product="product"
                @delete-product="deleteProduct(product.id)"
                @edit-product="editProduct"
-               @toggle-status="toggleProductStatus(product.id)"
+               @toggle-product-status="toggleProductStatus(product.id)"
               />
             </li>
           </ul>
@@ -58,12 +58,12 @@ const props = defineProps<{
   products: Product[]
 }>();
 
-const emit = defineEmits(['product-updated', 'edit-product', 'delete-all-products']);
+const emit = defineEmits(['toggle-product-status', 'edit-product', 'delete-all-products']);
 const {t} = useI18n();
 
 const toggleProductStatus = (id) => {
   storeProduct.toggleProductStatus(id);
-  emit('product-updated');
+  emit('toggle-product-status');
 };
 
 const deleteProduct = (id) => {

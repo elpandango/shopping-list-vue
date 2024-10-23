@@ -4,17 +4,18 @@
    density="compact"
   >
     <v-app-bar-title>{{ $t('appTitle') }}</v-app-bar-title>
-    <template v-slot:append>
-      <v-btn
-       @click="toggleLanguage">{{ locale === 'en' ? 'EN' : 'DE' }}</v-btn>
-    </template>
+    <v-btn
+     @click="toggleLanguage">{{ locale === 'en' ? 'EN' : 'DE' }}
+    </v-btn>
   </v-app-bar>
 </template>
 
-<script setup lang="ts">
+<script
+ setup
+ lang="ts">
 import {useI18n} from 'vue-i18n';
 
-const { t, locale } = useI18n();
+const {t, locale} = useI18n();
 
 const toggleLanguage = () => {
   locale.value = locale.value === 'en' ? 'de' : 'en';

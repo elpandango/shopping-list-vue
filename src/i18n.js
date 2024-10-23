@@ -27,6 +27,10 @@ const messages = {
     appGreeting: 'Welcome to Your Product Manager',
     appDescription: 'Add, edit, and delete your products efficiently!',
     manageProducts: 'Manage Products',
+    nameValidationText: 'Name is required.',
+    quantityValidationText: 'Quantity is required.',
+    doubleValidationText: 'This Product was already added.',
+    notificationText: 'Don\'t forget to buy it today',
   },
   de: {
     appTitle: 'Einkaufslisten-App',
@@ -54,6 +58,10 @@ const messages = {
     appGreeting: 'Willkommen bei Ihrem Produktmanager',
     appDescription: 'Fügen Sie Ihre Produkte effizient hinzu, bearbeiten und löschen!',
     manageProducts: 'Produkte verwalten',
+    nameValidationText: 'Der Name ist erforderlich.',
+    quantityValidationText: 'Die Menge ist erforderlich.',
+    doubleValidationText: 'Dieses Produkt wurde bereits hinzugefügt.',
+    notificationText: 'Vergiss nicht, es heute zu kaufen.',
   },
 };
 
