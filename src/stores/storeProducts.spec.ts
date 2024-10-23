@@ -1,6 +1,7 @@
 import { setActivePinia, createPinia } from 'pinia';
 import {useStoreProducts} from "@/stores/storeProducts";
 import { expect, vi, it, describe, beforeEach, afterEach } from 'vitest';
+import {Product} from "@/interfaces/Product";
 
 describe('storeProducts', () => {
   let store: ReturnType<typeof useStoreProducts>;
@@ -9,7 +10,7 @@ describe('storeProducts', () => {
     setActivePinia(createPinia());
     store = useStoreProducts();
 
-    // mocks
+    // mocking localStorage methods
     vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => null);
     vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
     vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {});
@@ -22,7 +23,7 @@ describe('storeProducts', () => {
 
   it('should add a new product', () => {
     // adding a product
-    const product = { name: 'Milk', quantity: 2, id: '', dueDate: '', completed: false };
+    const product: Product = { name: 'Milk', quantity: 2, id: '', dueDate: '', completed: false };
     // adding a product to the store
     store.addProduct(product);
 
@@ -34,7 +35,7 @@ describe('storeProducts', () => {
   });
 
   it('should delete a product by id', () => {
-    const product = { name: 'Bread', quantity: 1, id: 'test-123', dueDate: '', completed: false };
+    const product: Product = { name: 'Bread', quantity: 1, id: 'test-123', dueDate: '', completed: false };
     store.addProduct(product);
 
     store.deleteProductById('test-123');
@@ -44,7 +45,7 @@ describe('storeProducts', () => {
   });
 
   it('should toggle product status', () => {
-    const product = { name: 'Eggs', quantity: 12, completed: false };
+    const product: Product = { name: 'Eggs', quantity: 12, completed: false };
     store.addProduct(product);
 
     expect(store.products).toHaveLength(1);
@@ -70,7 +71,7 @@ describe('storeProducts', () => {
   });
 
   it('should clear all products', () => {
-    const product = { name: 'Cheese', quantity: 5, id: 'test-111', dueDate: '', completed: false };
+    const product: Product = { name: 'Cheese', quantity: 5, id: 'test-111', dueDate: '', completed: false };
     store.addProduct(product);
 
     store.deleteAllProducts();

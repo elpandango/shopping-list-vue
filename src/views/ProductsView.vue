@@ -40,13 +40,14 @@ import ProductList from '@/components/ProductList/ProductList.vue';
 import ProductModal from "@/components/Modals/ProductModal.vue";
 import ConfirmDeleteModal from "@/components/Modals/ConfirmDeleteModal.vue";
 import {useStoreProducts} from "@/stores/storeProducts";
+import {Product} from "@/interfaces/Product";
 
-const products = ref([]);
 const storeProducts = useStoreProducts();
 const isEditMode = ref(false);
 const showModal = ref(false);
 const showDeleteAllProductsModal = ref(false);
-const currentProduct = ref({
+const products = ref<Product[]>([]);
+const currentProduct = ref<Product>({
   name: '',
   quantity: null,
   dueDate: null,

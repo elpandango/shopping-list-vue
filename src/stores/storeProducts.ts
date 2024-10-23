@@ -1,12 +1,5 @@
 import {defineStore} from 'pinia';
-
-interface Product {
-  name: string,
-  quantity: number,
-  id: string,
-  completed: boolean,
-  dueDate?: string
-}
+import {Product} from "@/interfaces/Product";
 
 export const useStoreProducts = defineStore({
   id: 'storeProducts',
@@ -16,12 +9,12 @@ export const useStoreProducts = defineStore({
   actions: {
     addProduct(product: Product) {
       const newProduct: Product = {...product, id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`};
-      this.products.push(newProduct);
+      this.products.unshift(newProduct);
       this.saveProducts();
     },
     editProduct(product: Product) {
       const newProductsArray: Product[] = [...this.products];
-      const index = newProductsArray.findIndex(item => item.id === product.id);
+      const index: number = newProductsArray.findIndex(item => item.id === product.id);
       newProductsArray[index] = {...product};
       this.products = [...newProductsArray];
       this.saveProducts();

@@ -9,7 +9,7 @@
   </v-app>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {ref} from 'vue';
 import Preloader from "@/components/Preloader/Preloader.vue";
 

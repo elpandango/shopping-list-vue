@@ -19,7 +19,7 @@
   </v-main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import HeaderComponent from "@/components/HeaderComponent/HeaderComponent.vue";

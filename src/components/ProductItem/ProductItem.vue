@@ -5,8 +5,7 @@
     <div class="product-details">
       <p class="product-name">{{ product.name }} ({{ product.quantity }})</p>
       <p
-       class="product-due-to"
-       v-if="product.dueDate"><strong>{{ $t('dueDateLabel') }}:</strong> {{ product.dueDate }}</p>
+       class="product-due-to"><strong>{{ $t('dueDateLabel') }}:</strong> {{ product.dueDate ?? $t('dueDateNotAssigned') }}</p>
     </div>
 
     <div class="actions">
@@ -19,7 +18,7 @@
            class="ml-2"
            icon
           >
-            <v-icon>{{ product.completed ? 'mdi-check' : 'mdi-clock' }}</v-icon>
+            <v-icon>{{ product.completed ? 'mdi-check' : 'mdi-alert-circle' }}</v-icon>
           </v-btn>
         </template>
         <span>{{ product.completed ? $t('completedText') : $t('pendingText') }}</span>
@@ -78,19 +77,17 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {ref} from 'vue';
 import {useI18n} from "vue-i18n";
+import {Product} from "@/interfaces/Product";
 
-const props = defineProps({
-  product: {
-    type: Object,
-  }
-});
+const props = defineProps<{
+  product: Product;
+}>();
 
 const emit = defineEmits(['delete-product', 'edit-product', 'toggle-status']);
 const {t} = useI18n();
-
 const showDeleteDialog = ref(false);
 
 const openDeleteDialog = () => {

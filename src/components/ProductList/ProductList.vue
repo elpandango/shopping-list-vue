@@ -50,14 +50,13 @@
 import ProductItem from "@/components/ProductItem/ProductItem.vue";
 import {useStoreProducts} from "@/stores/storeProducts";
 import {useI18n} from 'vue-i18n';
+import {Product} from "@/interfaces/Product";
 
 const storeProduct = useStoreProducts();
 
-const props = defineProps({
-  products: {
-    type: Array,
-  }
-});
+const props = defineProps<{
+  products: Product[]
+}>();
 
 const emit = defineEmits(['product-updated', 'edit-product', 'delete-all-products']);
 const {t} = useI18n();
