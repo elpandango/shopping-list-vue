@@ -1,9 +1,18 @@
 version: '3'
 services:
-  vue-app:
-    image: vue-pwa-test-app_vue-app
+  vue-app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - "5173:5173"
     volumes:
       - .:/app
     command: npm run dev
+
+  vue-app-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "80:80"

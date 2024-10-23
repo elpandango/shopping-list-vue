@@ -110,7 +110,7 @@ const checkDueDates = () => {
     day: '2-digit',
   });
 
-  const dueProducts = products.value.filter(product => product.dueDate === today && !product.completed);
+  const dueProducts = products.value.filter(product => product.dueDate <= today && !product.completed);
 
   if (dueProducts.length > 0) {
     sendNotification(`🛒 Don't forget to buy it today: ${dueProducts.map(product => product.name).join(', ')}`);

@@ -1,4 +1,5 @@
-FROM node:lts
+# Dockerfile.dev
+FROM node:22.5.1 AS development
 
 WORKDIR /app
 
