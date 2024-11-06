@@ -11,6 +11,8 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import '@mdi/font/css/materialdesignicons.css';
 
+import {useStoreProducts} from "@/stores/storeProducts.ts";
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -25,8 +27,11 @@ app.use(router);
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+    navigator.serviceWorker.getRegistration('/service-worker.js').then((registration) => {
       console.log('ServiceWorker registered: ', registration);
+
+      const storeProducts = useStoreProducts();
+      storeProducts.setServiceWorker(registration);
     }).catch((registrationError) => {
       console.log('ServiceWorker registration failed: ', registrationError);
     });

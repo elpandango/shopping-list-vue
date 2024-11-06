@@ -5,6 +5,7 @@ export const useStoreProducts = defineStore({
   id: 'storeProducts',
   state: () => ({
     products: [] as Product[],
+    registration: null
   }),
   actions: {
     addProduct(product: Product) {
@@ -44,7 +45,10 @@ export const useStoreProducts = defineStore({
       newProduct.completed = !newProduct.completed;
       this.products = [...newProductsArray];
       this.saveProducts();
-    }
+    },
+    setServiceWorker(registration) {
+      this.registration = registration;
+    },
   },
   getters: {
     getProducts: (state: any) => state.products,

@@ -10,6 +10,7 @@
       </v-card-title>
       <v-card-text>
         <v-text-field
+         class="mb-4"
          :label="$t('addProductTitle')"
          v-model="product.name"
          variant="outlined"
@@ -17,6 +18,7 @@
         ></v-text-field>
 
         <v-date-input
+         class="mb-4"
          :label="$t('dueDateLabel')"
          v-model="product.dueDate"
          prepend-icon=""
@@ -25,6 +27,7 @@
         ></v-date-input>
 
         <v-number-input
+         class="mb-4"
          :label="$t('quantityLabel')"
          v-model="product.quantity"
          :rules="quantityRules"
