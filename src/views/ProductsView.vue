@@ -52,6 +52,7 @@ const products = ref<Product[]>([]);
 const currentProduct = ref<Product>({
   name: '',
   quantity: null,
+  id: null,
   dueDate: null,
   completed: false,
 });
@@ -66,6 +67,7 @@ const openModalToAdd = () => {
   currentProduct.value = {
     name: '',
     quantity: null,
+    id: null,
     dueDate: null,
     completed: false,
   };
@@ -126,10 +128,21 @@ const requestNotificationPermission = () => {
   });
 };
 
-const sendNotification = (message) => {
-  const notification = new Notification('Due Date Alert', {
-    body: message,
-  });
+const sendNotification = body => {
+  const title = 'Due Date Alert';
+
+  const registration = storeProducts.registration;
+
+  const payload = {
+    body
+  };
+
+  if('showNotification' in registration) {
+    registration.showNotification(title, payload);
+  }
+  else {
+    new Notification(title, payload);
+  }
 };
 
 onBeforeMount(() => {
